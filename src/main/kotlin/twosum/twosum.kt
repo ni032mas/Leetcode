@@ -1,6 +1,6 @@
 package twosum
 
-fun twoSum(nums: IntArray, target: Int): IntArray {
+fun twoSumBruteForce(nums: IntArray, target: Int): IntArray {
     val result = intArrayOf()
 
     for (i in 0..nums.size) {
@@ -12,4 +12,19 @@ fun twoSum(nums: IntArray, target: Int): IntArray {
     }
 
     return result
+}
+
+fun twoSum(nums: IntArray, target: Int): IntArray {
+    val mapInt = HashMap<Int, Int>()
+    for (i in nums.indices) {
+        mapInt[nums[i]] = i
+    }
+
+    for (i in 0..nums.size) {
+        mapInt[target - nums[i]]?.let { secondInt ->
+            if (i != secondInt) return intArrayOf(i, secondInt)
+        }
+    }
+
+    throw IllegalArgumentException("No solution")
 }
