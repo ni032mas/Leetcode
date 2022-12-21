@@ -25,3 +25,7 @@ fun romanToIntBruteForce(s: String): Int {
     }
     return output
 }
+
+fun main(arg: Array<String>) {
+    print(romanToIntBruteForce("IV"))
+}
