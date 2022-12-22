@@ -74,3 +74,6 @@ outTmp/
 /kotlin-native/dist
 kotlin-ide/
 /.idea/codeStyles/codeStyleConfig.xml
+/.idea/kotlinc.xml
+/.idea/codeStyles/Project.xml
+/.idea/vcs.xml
