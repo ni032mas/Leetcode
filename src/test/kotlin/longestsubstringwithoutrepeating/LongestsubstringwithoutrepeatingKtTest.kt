@@ -33,4 +33,9 @@ internal class LongestsubstringwithoutrepeatingKtTest {
     fun `test is string dvcdfu`() {
         assertEquals(5, logestSubstring("dvcdfu"))
     }
+
+    @Test
+    fun `test is string hash set dvcdfu`() {
+        assertEquals(5, lengthOfLongestSubstring("dvcdfu"))
+    }
 }

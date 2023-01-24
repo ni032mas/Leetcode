@@ -13,18 +13,43 @@ fun logestSubstring(s: String): Int {
     var longestSubstringSize = 0
     var prev = 0
     s.forEachIndexed { index, char ->
-        prev = if (hashMap.getOrDefault(char, 0) > prev) {
-            hashMap.getOrDefault(char, 0)
-        } else {
-            prev
+        if (hashMap.getOrDefault(char, 0) > prev) {
+            prev = hashMap.getOrDefault(char, 0)
         }
-        longestSubstringSize = if (longestSubstringSize > index - prev) {
-            longestSubstringSize
-        } else {
-            index - prev
+        if (longestSubstringSize < index - prev) {
+            longestSubstringSize = index - prev
         }
         hashMap[char] = index
     }
     return longestSubstringSize
+}
+
+fun lengthOfLongestSubstring(s: String): Int {
+    val characters = HashSet<Char>()
+
+    var firstPointer = 0;
+    var secondPointer = 0;
+
+    var maxLength = 0;
+    var currentLength = 0;
+
+    while(secondPointer < s.length) {
+        val current = s[secondPointer]
+        if(!characters.contains(current)) {
+            characters.add(current);
+            secondPointer++
+            currentLength++
+            if(currentLength > maxLength) {
+                maxLength = currentLength
+            }
+        } else {
+            characters.remove(s[firstPointer])
+            firstPointer++
+            currentLength--
+        }
+    }
+
+    return maxLength;
+
 }
 
