@@ -1,5 +1,16 @@
 class ListNode(var `val`: Int) {
     var next: ListNode? = null
+
+    override fun toString(): String {
+        return toStringNode(this)
+    }
+
+    private fun toStringNode(root: ListNode?, str: String = ""): String =
+        if (root?.next == null) {
+            "$str${root?.`val`}"
+        } else {
+            toStringNode(root.next, "$str${root.`val`}")
+        }
 }
 
 fun hasCycle(head: ListNode?): Boolean {
