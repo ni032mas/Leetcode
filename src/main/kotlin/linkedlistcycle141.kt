@@ -1,4 +1,4 @@
-class ListNode(var `val`: Int) {
+class ListNode(val `val`: Int) {
     var next: ListNode? = null
 
     override fun toString(): String {
@@ -11,6 +11,21 @@ class ListNode(var `val`: Int) {
         } else {
             toStringNode(root.next, "$str${root.`val`}")
         }
+}
+
+fun constructLinkedList(range: IntRange): ListNode? {
+    var head: ListNode? = null
+    var tail: ListNode? = null
+    for (i in range) {
+        val node = ListNode(i)
+        if (head == null) {
+            head = node
+        } else {
+            tail?.next = node
+        }
+        tail = node
+    }
+    return head
 }
 
 fun hasCycle(head: ListNode?): Boolean {
