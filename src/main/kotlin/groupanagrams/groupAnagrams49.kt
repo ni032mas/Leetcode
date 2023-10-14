@@ -107,20 +107,15 @@ private fun getFrequencyString(str: String): String {
 }
 
 fun groupAnagrams(strs: Array<String>): List<List<String>> =
-    run {
-        val startTime = System.nanoTime()
-        strs.fold(HashMap<String, MutableList<String>>()) { result, str ->
-            str.fold(CharArray(26)) { symbolArray, b ->
-                symbolArray[b.code - 'a'.code]++
-                symbolArray
-            }.let { symbolArray ->
-                result.getOrPut(String(symbolArray)) { mutableListOf() }.add(str)
-                result
-            }
-        }.values.toList().also {
-            println(System.nanoTime() - startTime)
+    strs.fold(HashMap<Int, MutableList<String>>()) { result, str ->
+        str.fold(CharArray(26)) { symbolArray, b ->
+            symbolArray[b.code - 'a'.code]++
+            symbolArray
+        }.let { symbolArray ->
+            result.getOrPut(symbolArray.contentHashCode()) { mutableListOf() }.add(str)
+            result
         }
-    }
+    }.values.toList()
 
 fun groupAnagramsFunVersion2(strs: Array<String>): List<List<String>> =
     strs.fold(HashMap<Int, MutableList<String>>()) { result, str ->
