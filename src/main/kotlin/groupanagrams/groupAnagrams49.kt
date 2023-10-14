@@ -70,44 +70,8 @@ fun main() {
     // Output: [["a"]]
 }
 
-fun groupAnagramsCategorizeByFrequency(strs: Array<String>): List<List<String>> {
-
-    if (strs.isEmpty()) return mutableListOf()
-    val frequencyStringsMap = HashMap<String, MutableList<String>>()
-    for (str in strs) {
-        val frequencyString = getFrequencyString(str)
-        if (frequencyStringsMap.containsKey(frequencyString)) {
-            frequencyStringsMap[frequencyString]?.add(str)
-        } else {
-            frequencyStringsMap[frequencyString] = mutableListOf(str)
-        }
-    }
-    return frequencyStringsMap.values.toList()
-}
-
-private fun getFrequencyString(str: String): String {
-
-    // Frequency buckets
-    val freq = IntArray(26)
-
-    // Iterate over each character
-    for (c in str.toCharArray()) {
-        freq[c.code - 'a'.code]++
-    }
-
-    // Start creating the frequency string
-    val frequencyString = StringBuilder("")
-    var c = 'a'
-    for (i in freq) {
-        frequencyString.append(c)
-        frequencyString.append(i)
-        c++
-    }
-    return frequencyString.toString()
-}
-
 fun groupAnagrams(strs: Array<String>): List<List<String>> =
-    strs.fold(HashMap<Int, MutableList<String>>()) { result, str ->
+    strs.sorted().fold(HashMap<Int, MutableList<String>>()) { result, str ->
         str.fold(CharArray(26)) { symbolArray, b ->
             symbolArray[b.code - 'a'.code]++
             symbolArray
@@ -116,55 +80,6 @@ fun groupAnagrams(strs: Array<String>): List<List<String>> =
             result
         }
     }.values.toList()
-
-fun groupAnagramsFunVersion2(strs: Array<String>): List<List<String>> =
-    strs.fold(HashMap<Int, MutableList<String>>()) { result, str ->
-        str.toSet().let { set ->
-            set.fold(0) { a, b -> a + b.code }.let { hash ->
-                result[hash]?.add(str) ?: run { result[hash] = mutableListOf(str) }
-                result
-            }
-        }
-    }.values.toList()
-
-//fun groupAnagramsFunVersionSet(strs: Array<String>): List<List<String>> =
-//    strs.fold(HashMap<Set<Int>, MutableList<String>>()) { result, str ->
-//        str.toSet().let { set ->
-//            if (set.size == str.length && str.any { set.contains(it).not() }.not()) {
-//
-//            } else {
-//
-//            }
-//        }
-//        str.toSet().fold(0) { a, b -> a + b.code }.let { set ->
-//            set
-//            result[hash]?.add(str) ?: run { result[hash] = mutableListOf(str) }
-//            result
-//        }
-//    }.values.toList()
-
-private fun getFrequencyString1(str: String): String {
-
-    // Frequency buckets
-    val freq = IntArray(26)
-
-    str.toCharArray().fold(0) { a, b -> a + b.code }
-
-    // Iterate over each character
-    for (c in str.toCharArray()) {
-        freq[c.code - 'a'.code]++
-    }
-
-    // Start creating the frequency string
-    val frequencyString = StringBuilder("")
-    var c = 'a'
-    for (i in freq) {
-        frequencyString.append(c)
-        frequencyString.append(i)
-        c++
-    }
-    return frequencyString.toString()
-}
 
 fun groupAnagramsSorted(strs: Array<String>): List<List<String>> {
     val hashmap = HashMap<String, MutableList<String>>()
