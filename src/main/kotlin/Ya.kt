@@ -52,7 +52,7 @@ val secondThread = Thread {
     print("a = $a, ")
 }
 
-fun main() {
+fun main2() {
     println(
         flowering(
             listOf(
